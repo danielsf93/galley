@@ -8,7 +8,7 @@
  * List of operations this plugin can perform
  *}
 {strip}
-{include file="common/header.tpl" pageTitle="xurrasco"}
+{include file="common/header.tpl" pageTitle="Exportação de DOI de arquivos em XML"}
 {/strip}
 
 {if !empty($configurationErrors) ||
@@ -30,7 +30,7 @@
 	<ul>
 		<li><a href="#settings-tab">{translate key="plugins.importexport.common.settings"}</a></li>
 		{if $allowExport}
-		dica04	<li><a href="#exportSubmissions-tab">{translate key="plugins.importexport.common.export.articles"} dica05</a></li>
+		<li><a href="#exportSubmissions-tab">{translate key="plugins.importexport.common.export.articles"}</a></li>
 		{/if}
 	</ul>
 	<div id="settings-tab">
@@ -75,11 +75,12 @@
 				{csrf}
 				<input type="hidden" name="tab" value="exportSubmissions-tab" />
 				{fbvFormArea id="submissionsXmlForm"}
-					Dica07{capture assign=submissionsListGridUrl}{url router=$smarty.const.ROUTE_COMPONENT component="grid.pubIds.PubIdExportSubmissionsListGridHandler" op="fetchGrid" plugin="galley" category="importexport" escape=false}{/capture}
-					filo{load_url_in_div id="submissionsListGridContainer" url=$submissionsListGridUrl}
-					{fbvFormSection list="true"}dica08
+					<p><h2>Escolha somente um Artigo que possua dois Arquivos</h2></p>
+					{capture assign=submissionsListGridUrl}{url router=$smarty.const.ROUTE_COMPONENT component="grid.pubIds.PubIdExportSubmissionsListGridHandler" op="fetchGrid" plugin="galley" category="importexport" escape=false}{/capture}
+					{load_url_in_div id="submissionsListGridContainer" url=$submissionsListGridUrl}
+					{fbvFormSection list="true"}
 						{fbvElement type="checkbox" id="validation" label="plugins.importexport.galley.settings.form.validation" checked=$validation|default:false}
-					{/fbvFormSection}dica06
+					{/fbvFormSection}
 					{if !empty($actionNames)}
 						{fbvFormSection}
 						<ul class="export_actions">
@@ -93,7 +94,7 @@
 					{/if}
 				{/fbvFormArea}
 			</form>
-			<p>{translate key="plugins.importexport.galley.statusLegend"}</p>dica03
+			<p>{translate key="plugins.importexport.galley.statusLegend"}</p>
 		</div>
 	{/if}
 </div>

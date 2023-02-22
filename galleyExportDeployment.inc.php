@@ -18,10 +18,10 @@
  */
 
 // XML attributes
-define('galley_XMLNS' , 'http://www.galley.org/schema/4.3.6 estou neste link');
+define('galley_XMLNS' , 'http://www.crossref.org/schema/4.3.6');
 define('galley_XMLNS_XSI' , 'http://www.w3.org/2001/XMLSchema-instance');
 define('galley_XSI_SCHEMAVERSION' , '4.3.6');
-define('galley_XSI_SCHEMALOCATION' , 'https://www.galley.org/schemas/galley4.3.6.xsd estou neste link');
+define('galley_XSI_SCHEMALOCATION' , 'https://www.crossref.org/schemas/crossref4.3.6.xsd');
 define('galley_XMLNS_JATS' , 'http://www.ncbi.nlm.nih.gov/JATS1');
 define('galley_XMLNS_AI' , 'http://www.galley.org/AccessIndicators.xsd');
 

@@ -46,14 +46,14 @@ class galleyExportPlugin extends DOIPubIdExportPlugin {
 	 * @copydoc Plugin::getDisplayName()
 	 */
 	function getDisplayName() {
-		return __('Galley export');
+		return __('Galley DOI');
 	}
 
 	/**
 	 * @copydoc Plugin::getDescription()
 	 */
 	function getDescription() {
-		return __('Galley export');
+		return __('Plugin para exportação de DOI de arquivos em XML para Crossref');
 	}
 
 	/**
@@ -169,7 +169,7 @@ class galleyExportPlugin extends DOIPubIdExportPlugin {
 	 * @copydoc ImportExportPlugin::getPluginSettingsPrefix()
 	 */
 	function getPluginSettingsPrefix() {
-		return 'galley';
+		return 'crossref';
 	}
 
 	/**

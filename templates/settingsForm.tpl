@@ -1,10 +1,6 @@
 {**
  * plugins/importexport/galley/templates/settingsForm.tpl
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2003-2020 John Willinsky
- * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
- *
  * galley plugin settings
  *
  *}
@@ -24,8 +20,15 @@
 		{/fbvFormArea}
 	{/if}
 	{fbvFormArea id="galleySettingsFormArea"}
+	
+	
+	<p><h1>Plugin Galley DOI</h1></p>
+	<p><h3>Este plugin é baseado no plugin "Exportação CrossRef em XML". Configure suas informações da mesma forma
+	que o plugin "Exportação CrossRef em XML". Na aba Artigos é possível exportar o xml de arquivos. Por enquanto
+	selecione somente artigos que possuem dois PDF's para baixar o xml. Atenção, baixe um xml por vez!!!</h3></p>
+	
 		<p class="pkp_help">{translate key="plugins.importexport.galley.settings.depositorIntro"}</p>
-		{fbvFormSection}dica02
+			{fbvFormSection}
 			{fbvElement type="text" id="depositorName" value=$depositorName required="true" label="plugins.importexport.galley.settings.form.depositorName" maxlength="60" size=$fbvStyles.size.MEDIUM}
 			{fbvElement type="text" id="depositorEmail" value=$depositorEmail required="true" label="plugins.importexport.galley.settings.form.depositorEmail" maxlength="90" size=$fbvStyles.size.MEDIUM}
 		{/fbvFormSection}
@@ -40,7 +43,7 @@
 		{/fbvFormSection}
 		{fbvFormSection list="true"}
 			{fbvElement type="checkbox" id="testMode" label="plugins.importexport.galley.settings.form.testMode.description" checked=$testMode|compare:true}
-		{/fbvFormSection}dica01
+		{/fbvFormSection}
 	{/fbvFormArea}
 	{fbvFormButtons submitText="common.save"}
 	<p><span class="formRequired">{translate key="common.requiredField"}</span></p>
