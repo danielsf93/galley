@@ -47,7 +47,6 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 		$journalNode = parent::createJournalNode($doc, $pubObject);
 		assert(is_a($pubObject, 'Submission'));
 		$journalNode->appendChild($this->createJournalArticleNode($doc, $pubObject));
-		$journalNode->appendChild($this->createJournalArticleNode44($doc, $pubObject));
 		return $journalNode;
 	}
 
@@ -81,7 +80,7 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 	 * @param $submission Submission
 	 * @return DOMElement
 	 */
-	function createJournalIssueNode33($doc, $submission) {
+	function createJournalIssueNodegd($doc, $submission) {
 		$deployment = $this->getDeployment();
 		$context = $deployment->getContext();
 		$cache = $deployment->getCache();
@@ -94,8 +93,8 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 			$issue = $issueDao->getById($issueId, $context->getId());
 			if ($issue) $cache->add($issue, null);
 		}
-		$journalIssueNode33 = parent::createJournalIssueNode33($doc, $issue);
-		return $journalIssueNode33;
+		$journalIssueNodegd = parent::createJournalIssueNodegd($doc, $issue);
+		return $journalIssueNodegd;
 	}
 
 	/**
@@ -303,7 +302,7 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 	 * @param $submission Submission
 	 * @return DOMElement
 	 */
-	function createjournalArticleNode44($doc, $submission) {
+	function createjournalArticleNodegd($doc, $submission) {
 		$deployment = $this->getDeployment();
 		$context = $deployment->getContext();
 		$request = Application::get()->getRequest();
@@ -314,16 +313,16 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 		// Issue shoulld be set by now
 		$issue = $deployment->getIssue();
 
-		$journalArticleNode44 = $doc->createElementNS($deployment->getNamespace(), 'journal_article44');
-		$journalArticleNode44->setAttribute('publication_type', 'full_text');
-		$journalArticleNode44->setAttribute('metadata_distribution_opts', 'any');
+		$journalArticleNodegd = $doc->createElementNS($deployment->getNamespace(), 'journal_articlegd');
+		$journalArticleNodegd->setAttribute('publication_type', 'full_text');
+		$journalArticleNodegd->setAttribute('metadata_distribution_opts', 'any');
 
 
 		// title
 		$titlesNode = $doc->createElementNS($deployment->getNamespace(), 'titles');
 		$titlesNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'title', htmlspecialchars($publication->getData('title', $locale), ENT_COMPAT, 'UTF-8')));
 		if ($subtitle = $publication->getData('subtitle', $locale)) $titlesNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'subtitle', htmlspecialchars($subtitle, ENT_COMPAT, 'UTF-8')));
-		$journalArticleNode44->appendChild($titlesNode);
+		$journalArticleNodegd->appendChild($titlesNode);
 
 		// contributors
 		$contributorsNode = $doc->createElementNS($deployment->getNamespace(), 'contributors');
@@ -381,18 +380,18 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 			$contributorsNode->appendChild($personNameNode);
 			$isFirst = false;
 		}
-		$journalArticleNode44->appendChild($contributorsNode);
+		$journalArticleNodegd->appendChild($contributorsNode);
 
 		// abstract
 		if ($abstract = $publication->getData('abstract', $locale)) {
 			$abstractNode = $doc->createElementNS($deployment->getJATSNamespace(), 'jats:abstract');
 			$abstractNode->appendChild($node = $doc->createElementNS($deployment->getJATSNamespace(), 'jats:p', htmlspecialchars(html_entity_decode(strip_tags($abstract), ENT_COMPAT, 'UTF-8'), ENT_COMPAT, 'UTF-8')));
-			$journalArticleNode44->appendChild($abstractNode);
+			$journalArticleNodegd->appendChild($abstractNode);
 		}
 
 		// publication date
 		if ($datePublished = $publication->getData('datePublished')) {
-			$journalArticleNode44->appendChild($this->createPublicationDateNode($doc, $datePublished));
+			$journalArticleNodegd->appendChild($this->createPublicationDateNode($doc, $datePublished));
 		}
 
 		// pages
@@ -422,7 +421,7 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 				if ($otherPages != '') {
 					$pagesNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'other_pages', $otherPages));
 				}
-				$journalArticleNode44->appendChild($pagesNode);
+				$journalArticleNodegd->appendChild($pagesNode);
 			}
 		}
 
@@ -431,7 +430,7 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 			$licenseNode = $doc->createElementNS($deployment->getAINamespace(), 'ai:program');
 			$licenseNode->setAttribute('name', 'AccessIndicators');
 			$licenseNode->appendChild($node = $doc->createElementNS($deployment->getAINamespace(), 'ai:license_ref', htmlspecialchars($publication->getData('licenseUrl'), ENT_COMPAT, 'UTF-8')));
-			$journalArticleNode44->appendChild($licenseNode);
+			$journalArticleNodegd->appendChild($licenseNode);
 		}
 
 		// DOI data
@@ -480,19 +479,25 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 			$asCrawledGalleys = $submissionGalleys;
 		}
 		// as-crawled URL - collection nodes
-		$this->appendAsCrawledCollectionNodes($doc, $doiDataNode, $submission, $asCrawledGalleys);
+		$this->appendAsCrawledCollectionNodesgd($doc, $doiDataNode, $submission, $asCrawledGalleys);
 		// text-mining - collection nodes
 		$submissionGalleys = array_merge($submissionGalleys, $remoteGalleys);
-		$this->appendTextMiningCollectionNodes($doc, $doiDataNode, $submission, $submissionGalleys);
-		$journalArticleNode44->appendChild($doiDataNode);
+		$this->appendTextMiningCollectionNodesgd($doc, $doiDataNode, $submission, $submissionGalleys);
+		$journalArticleNodegd->appendChild($doiDataNode);
 
 		// component list (supplementary files)
 		if (!empty($componentGalleys)) {
-			$journalArticleNode44->appendChild($this->createComponentListNode($doc, $submission, $componentGalleys));
+			$journalArticleNodegd->appendChild($this->createComponentListNode($doc, $submission, $componentGalleys));
 		}
 
-		return $journalArticleNode44;
+		return $journalArticleNodegd;
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -531,6 +536,43 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 			$doiDataNode->appendChild($crawlerBasedCollectionNode);
 		}
 	}
+
+
+
+
+	function appendAsCrawledCollectionNodesgd($doc, $doiDataNodegd, $submission, $galleys) {
+		$deployment = $this->getDeployment();
+		$context = $deployment->getContext();
+		$request = Application::get()->getRequest();
+
+		if (empty($galleys)) {
+			$crawlerBasedCollectionNodegd = $doc->createElementNS($deployment->getNamespace(), 'collection');
+			$crawlerBasedCollectionNodegd->setAttribute('property', 'crawler-based');
+			$doiDataNode->appendChild($crawlerBasedCollectionNodegd);
+		}
+		foreach ($galleys as $galley) {
+			$resourceURL = $request->url($context->getPath(), 'article', 'downloadgd', array($submission->getBestId(), $galley->getBestGalleyId()), null, null, true);
+			
+			
+			
+			
+			
+			// iParadigms crawler based collection element
+			$crawlerBasedCollectionNodegd = $doc->createElementNS($deployment->getNamespace(), 'collection');
+			$crawlerBasedCollectionNodegd->setAttribute('property', 'crawler-based');
+			$iParadigmsItemNode = $doc->createElementNS($deployment->getNamespace(), 'item');
+			$iParadigmsItemNode->setAttribute('crawler', 'iParadigms');
+			$iParadigmsItemNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'resource', $resourceURL));
+			$crawlerBasedCollectionNodegd->appendChild($iParadigmsItemNode);
+			$doiDataNodegd->appendChild($crawlerBasedCollectionNodegd);
+		}
+	}
+
+
+
+
+
+
 
 	/**
 	 * Append the collection node 'collection property="text-mining"' to the doi data node.
@@ -577,7 +619,39 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 	
 	
 	
-	
+	function appendTextMiningCollectionNodesgd($doc, $doiDataNodegd, $submission, $galleys) {
+		$deployment = $this->getDeployment();
+		$context = $deployment->getContext();
+		$request = Application::get()->getRequest();
+
+		// start of the text-mining collection element
+		$textMiningCollectionNodegd = $doc->createElementNS($deployment->getNamespace(), 'collection');
+		$textMiningCollectionNodegd->setAttribute('property', 'text-mining');
+		foreach ($galleys as $galley) {
+			$resourceURL = $request->url($context->getPath(), 'article', 'downloadgd03', array($submission->getBestId(), $galley->getBestGalleyId()), null, null, true);
+			
+			
+			
+			//------------------------------------------------
+			
+			
+			// text-mining collection item
+			$textMiningItemNodegd = $doc->createElementNS($deployment->getNamespace(), 'item');
+			
+			$resourceNodegd = $doc->createElementNS($deployment->getNamespace(), 'resource', $resourceURL);
+			
+			
+			
+			//forma o link de download do arquivo----------------------------
+			
+			
+			
+			if (!$galley->getRemoteURL()) $resourceNodegd->setAttribute('mime_type', $galley->getFileType());
+			$textMiningItemNodegd->appendChild($resourceNodegd);
+			$textMiningCollectionNodegd->appendChild($textMiningItemNodegd);
+		}
+		$doiDataNodegd->appendChild($textMiningCollectionNodegd);
+	}
 	
 	
 	

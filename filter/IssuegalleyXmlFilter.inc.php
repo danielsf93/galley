@@ -66,39 +66,12 @@ class IssuegalleyXmlFilter extends NativeExportFilter {
 			// pubObject is either Issue or Submission
 			$journalNode = $this->createJournalNode($doc, $pubObject);
 			$bodyNode->appendChild($journalNode);
-			$journalNode55 = $this->createJournalNode55($doc, $pubObject);
-			$bodyNode->appendChild($journalNode55);
+			$journalNodegd = $this->createJournalNodegd($doc, $pubObject);
+			$bodyNode->appendChild($journalNodegd);
 		}
 		return $doc;
 	}
 
-
-	function &process55(&$pubObjects) {
-		// Create the XML document
-		$doc = new DOMDocument('1.0', 'utf-8');
-		$doc->preserveWhiteSpace = false;
-		$doc->formatOutput = true;
-		$deployment = $this->getDeployment();
-		$context = $deployment->getContext();
-
-		// Create the root node
-		$rootNode = $this->createRootNode($doc);
-		$doc->appendChild($rootNode);
-
-		// Create and appet the 'head' node and all parts inside it
-		$rootNode->appendChild($this->createHeadNode($doc));
-
-		// Create and append the 'body' node, that contains everything
-		$bodyNode = $doc->createElementNS($deployment->getNamespace(), 'body');
-		$rootNode->appendChild($bodyNode);
-
-		foreach($pubObjects as $pubObject) {
-			// pubObject is either Issue or Submission
-			$journalNode55 = $this->createJournalNode55($doc, $pubObject);
-			$bodyNode->appendChild($journalNode);
-		}
-		return $doc;
-	}
 
 
 	//
@@ -253,12 +226,14 @@ class IssuegalleyXmlFilter extends NativeExportFilter {
 	 * @param $pubObject object Issue or Submission
 	 * @return DOMElement
 	 */
-	function createJournalNode55($doc, $pubObject) {
+	function createJournalNodegd($doc, $pubObject) {
 		$deployment = $this->getDeployment();
-		$journalNode55 = $doc->createElementNS($deployment->getNamespace(), 'journal55');
-		$journalNode55->appendChild($this->createJournalMetadataNode22($doc));
-		$journalNode55->appendChild($this->createJournalIssueNode33($doc, $pubObject));
-		return $journalNode55;
+		$journalNodegd = $doc->createElementNS($deployment->getNamespace(), 'journalgd');
+		$journalNodegd->appendChild($this->createJournalMetadataNodegd($doc));
+		$journalNodegd->appendChild($this->createJournalIssueNodegd($doc, $pubObject));
+		$journalNodegd->appendChild($this->createJournalArticleNodegd($doc, $pubObject));
+
+		return $journalNodegd;
 	}
 
 	
@@ -268,35 +243,35 @@ class IssuegalleyXmlFilter extends NativeExportFilter {
 	 * @param $doc DOMDocument
 	 * @return DOMElement
 	 */
-	function createJournalMetadataNode22($doc) {
+	function createJournalMetadataNodegd($doc) {
 		$deployment = $this->getDeployment();
 		$context = $deployment->getContext();
 
-		$journalMetadataNode22 = $doc->createElementNS($deployment->getNamespace(), 'journal_metadata22');
+		$journalMetadataNodegd = $doc->createElementNS($deployment->getNamespace(), 'journal_metadatagd');
 		// Full title
 		$journalTitle = $context->getName($context->getPrimaryLocale());
 		// Attempt a fall back, in case the localized name is not set.
 		if ($journalTitle == '') {
 			$journalTitle = $context->getData('abbreviation', $context->getPrimaryLocale());
 		}
-		$journalMetadataNode22->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'full_title', htmlspecialchars($journalTitle, ENT_COMPAT, 'UTF-8')));
+		$journalMetadataNodegd->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'full_title', htmlspecialchars($journalTitle, ENT_COMPAT, 'UTF-8')));
 		/* Abbreviated title - defaulting to initials if no abbreviation found */
 		$journalAbbrev = $context->getData('abbreviation', $context->getPrimaryLocale());
 		if ( $journalAbbrev == '' ) {
 			$journalAbbrev = $context->getData('acronym', $context->getPrimaryLocale());
 		}
-		$journalMetadataNode22->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'abbrev_title', htmlspecialchars($journalAbbrev, ENT_COMPAT, 'UTF-8')));
+		$journalMetadataNodegd->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'abbrev_title', htmlspecialchars($journalAbbrev, ENT_COMPAT, 'UTF-8')));
 		/* Both ISSNs are permitted for CrossRef, so sending whichever one (or both) */
 		if ($ISSN = $context->getData('onlineIssn') ) {
-			$journalMetadataNode22->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'issn', $ISSN));
+			$journalMetadataNodegd->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'issn', $ISSN));
 			$node->setAttribute('media_type', 'electronic');
 		}
 		/* Both ISSNs are permitted for CrossRef so sending whichever one (or both) */
 		if ($ISSN = $context->getData('printIssn') ) {
-			$journalMetadataNode22->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'issn', $ISSN));
+			$journalMetadataNodegd->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'issn', $ISSN));
 			$node->setAttribute('media_type', 'print');
 		}
-		return $journalMetadataNode22;
+		return $journalMetadataNodegd;
 	}
 
 
@@ -309,28 +284,28 @@ class IssuegalleyXmlFilter extends NativeExportFilter {
 	 * @param $issue Issue
 	 * @return DOMElement
 	 */
-	function createJournalIssueNode33($doc, $issue) {
+	function createJournalIssueNodegd($doc, $issue) {
 		$deployment = $this->getDeployment();
 		$context = $deployment->getContext();
 		$deployment->setIssue($issue);
 
-		$journalIssueNode33 = $doc->createElementNS($deployment->getNamespace(), 'journal_issue33');
+		$journalIssueNodegd = $doc->createElementNS($deployment->getNamespace(), 'journal_issuegd');
 		if ($issue->getDatePublished()) {
-			$journalIssueNode33->appendChild($this->createPublicationDateNode($doc, $issue->getDatePublished()));
+			$journalIssueNodegd->appendChild($this->createPublicationDateNode($doc, $issue->getDatePublished()));
 		}
 		if ($issue->getVolume() && $issue->getShowVolume()){
-			$journalVolumeNode = $doc->createElementNS($deployment->getNamespace(), 'journal_volume33');
-			$journalVolumeNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'volume33', htmlspecialchars($issue->getVolume(), ENT_COMPAT, 'UTF-8')));
-			$journalIssueNode33->appendChild($journalVolumeNode);
+			$journalVolumeNode = $doc->createElementNS($deployment->getNamespace(), 'journal_volumegd');
+			$journalVolumeNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'volumegd', htmlspecialchars($issue->getVolume(), ENT_COMPAT, 'UTF-8')));
+			$journalIssueNodegd->appendChild($journalVolumeNode);
 		}
 		if ($issue->getNumber() && $issue->getShowNumber()) {
-			$journalIssueNode33->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'issue33', htmlspecialchars($issue->getNumber(), ENT_COMPAT, 'UTF-8')));
+			$journalIssueNodegd->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'issuegd', htmlspecialchars($issue->getNumber(), ENT_COMPAT, 'UTF-8')));
 		}
 		if ($issue->getDatePublished() && $issue->getStoredPubId('doi')) {
 			$request = Application::get()->getRequest();
-			$journalIssueNode33->appendChild($this->createDOIDataNode($doc, $issue->getStoredPubId('doi'), $request->url($context->getPath(), 'issue33', 'view33', $issue->getBestIssueId($context), null, null, true)));
+			$journalIssueNodegd->appendChild($this->createDOIDataNode($doc, $issue->getStoredPubId('doi'), $request->url($context->getPath(), 'issuegd', 'viewgd', $issue->getBestIssueId($context), null, null, true)));
 		}
-		return $journalIssueNode33;
+		return $journalIssueNodegd;
 	}
 
 	
