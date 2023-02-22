@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filterConfig SYSTEM "../../../../lib/pkp/dtd/filterConfig.dtd">
+
+<!--
+  * plugins/importexport/galley/filter/filterConfig.xml
+  *
+  * Copyright (c) 2014-2020 Simon Fraser University
+  * Copyright (c) 2003-2020 John Willinsky
+  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+  *
+  * Filter Configuration.
+  -->
+<filterConfig>
+	<filterGroups>
+		<!-- galley XML issue output -->
+		<filterGroup
+			symbolic="issue=>galley-xml"
+			displayName="plugins.importexport.galley.displayName"
+			description="plugins.importexport.galley.description"
+			inputType="class::classes.issue.Issue[]"
+			outputType="xml::schema(https://www.galley.org/schemas/galley4.3.6.xsd)" />
+		<!-- galley XML article output -->
+		<filterGroup
+			symbolic="article=>galley-xml"
+			displayName="plugins.importexport.galley.displayName"
+			description="plugins.importexport.galley.description"
+			inputType="class::classes.submission.Submission[]"
+			outputType="xml::schema(https://www.galley.org/schemas/galley4.3.6.xsd)" />
+	</filterGroups>
+	<filters>
+		<!-- galley XML issue output -->
+		<filter
+			inGroup="issue=>galley-xml"
+			class="plugins.importexport.galley.filter.IssuegalleyXmlFilter"
+			isTemplate="0" />
+		<!-- galley XML article output -->
+		<filter
+			inGroup="article=>galley-xml"
+			class="plugins.importexport.galley.filter.ArticlegalleyXmlFilter"
+			isTemplate="0" />
+	</filters>
+</filterConfig>
