@@ -297,6 +297,15 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 	
 	
 	/**
+	 * 
+	 * 
+	 * FUNÇÃO GD
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 * Create and return the journal article node 'journal_article'.
 	 * @param $doc DOMDocument
 	 * @param $submission Submission
@@ -313,7 +322,7 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 		// Issue shoulld be set by now
 		$issue = $deployment->getIssue();
 
-		$journalArticleNodegd = $doc->createElementNS($deployment->getNamespace(), 'journal_articlegd');
+		$journalArticleNodegd = $doc->createElementNS($deployment->getNamespace(), 'journal_article');
 		$journalArticleNodegd->setAttribute('publication_type', 'full_text');
 		$journalArticleNodegd->setAttribute('metadata_distribution_opts', 'any');
 
@@ -434,7 +443,7 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 		}
 
 		// DOI data
-		$doiDataNode = $this->createDOIDataNode($doc, $publication->getStoredPubId('doi'), $request->url($context->getPath(), 'article', 'view', $submission->getBestId(), null, null, true));
+		$doiDataNode = $this->createDOIDataNode($doc, $publication->getStoredPubId('doi'), $request->url($context->getPath(), 'article', 'viewlllll', $submission->getBestId(), null, null, true));
 		// append galleys files and collection nodes to the DOI data node
 		$galleys = $publication->getData('galleys');
 		// All full-texts, PDF full-texts and remote galleys for text-mining and as-crawled URL
@@ -538,7 +547,7 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 	}
 
 
-
+//função terminada em gd:
 
 	function appendAsCrawledCollectionNodesgd($doc, $doiDataNodegd, $submission, $galleys) {
 		$deployment = $this->getDeployment();
@@ -551,7 +560,7 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 			$doiDataNode->appendChild($crawlerBasedCollectionNodegd);
 		}
 		foreach ($galleys as $galley) {
-			$resourceURL = $request->url($context->getPath(), 'article', 'downloadgd', array($submission->getBestId(), $galley->getBestGalleyId()), null, null, true);
+			$resourceURL = $request->url($context->getPath(), 'article', 'download', array($submission->getBestId(), $galley->getBestGalleyId()), null, null, true);
 			
 			
 			
@@ -585,26 +594,23 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 		$deployment = $this->getDeployment();
 		$context = $deployment->getContext();
 		$request = Application::get()->getRequest();
-
+/*
+ * 
+ * formação de link de download $resourceURL = $request->url($context->getPath(), 'article', 'download03', array
+ * testar formatação para view
+ * 
+ * */
 		// start of the text-mining collection element
 		$textMiningCollectionNode = $doc->createElementNS($deployment->getNamespace(), 'collection');
 		$textMiningCollectionNode->setAttribute('property', 'text-mining');
 		foreach ($galleys as $galley) {
-			$resourceURL = $request->url($context->getPath(), 'article', 'download03', array($submission->getBestId(), $galley->getBestGalleyId()), null, null, true);
+			$resourceURL = $request->url($context->getPath(), 'article', 'download', array($submission->getBestId(), $galley->getBestGalleyId()), null, null, true);
 			
-			
-			
-			//------------------------------------------------
-			
-			
+
 			// text-mining collection item
 			$textMiningItemNode = $doc->createElementNS($deployment->getNamespace(), 'item');
 			
 			$resourceNode = $doc->createElementNS($deployment->getNamespace(), 'resource', $resourceURL);
-			
-			
-			
-			//forma o link de download do arquivo----------------------------
 			
 			
 			
@@ -616,7 +622,7 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 	}
 	
 	
-	
+	//funcao gd
 	
 	
 	function appendTextMiningCollectionNodesgd($doc, $doiDataNodegd, $submission, $galleys) {
@@ -624,25 +630,25 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 		$context = $deployment->getContext();
 		$request = Application::get()->getRequest();
 
+
+
+/*
+ * 
+ * formação de link de download $resourceURL = $request->url($context->getPath(), 'article', 'download03', array
+ * testar formatação para view
+ * 
+ * */
 		// start of the text-mining collection element
 		$textMiningCollectionNodegd = $doc->createElementNS($deployment->getNamespace(), 'collection');
 		$textMiningCollectionNodegd->setAttribute('property', 'text-mining');
 		foreach ($galleys as $galley) {
-			$resourceURL = $request->url($context->getPath(), 'article', 'downloadgd03', array($submission->getBestId(), $galley->getBestGalleyId()), null, null, true);
-			
-			
-			
-			//------------------------------------------------
+			$resourceURL = $request->url($context->getPath(), 'article', 'download', array($submission->getBestId(), $galley->getBestGalleyId()), null, null, true);
 			
 			
 			// text-mining collection item
 			$textMiningItemNodegd = $doc->createElementNS($deployment->getNamespace(), 'item');
 			
 			$resourceNodegd = $doc->createElementNS($deployment->getNamespace(), 'resource', $resourceURL);
-			
-			
-			
-			//forma o link de download do arquivo----------------------------
 			
 			
 			

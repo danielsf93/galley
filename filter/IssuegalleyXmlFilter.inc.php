@@ -212,12 +212,9 @@ class IssuegalleyXmlFilter extends NativeExportFilter {
 	}
 	
 	/*
+	 *  minhas mudanças
 	 * 
-	 * 
-	 * 
-	 * minhas mudanças
-	 * 
-	 * 
+	 * Toda função terminada em "gd" faz parte da segunda declaração de <journal> do xml
 	 * 
 	 * /
 		/**
@@ -228,7 +225,7 @@ class IssuegalleyXmlFilter extends NativeExportFilter {
 	 */
 	function createJournalNodegd($doc, $pubObject) {
 		$deployment = $this->getDeployment();
-		$journalNodegd = $doc->createElementNS($deployment->getNamespace(), 'journalgd');
+		$journalNodegd = $doc->createElementNS($deployment->getNamespace(), 'journal');
 		$journalNodegd->appendChild($this->createJournalMetadataNodegd($doc));
 		$journalNodegd->appendChild($this->createJournalIssueNodegd($doc, $pubObject));
 		$journalNodegd->appendChild($this->createJournalArticleNodegd($doc, $pubObject));
@@ -247,7 +244,7 @@ class IssuegalleyXmlFilter extends NativeExportFilter {
 		$deployment = $this->getDeployment();
 		$context = $deployment->getContext();
 
-		$journalMetadataNodegd = $doc->createElementNS($deployment->getNamespace(), 'journal_metadatagd');
+		$journalMetadataNodegd = $doc->createElementNS($deployment->getNamespace(), 'journal_metadata');
 		// Full title
 		$journalTitle = $context->getName($context->getPrimaryLocale());
 		// Attempt a fall back, in case the localized name is not set.
@@ -289,21 +286,21 @@ class IssuegalleyXmlFilter extends NativeExportFilter {
 		$context = $deployment->getContext();
 		$deployment->setIssue($issue);
 
-		$journalIssueNodegd = $doc->createElementNS($deployment->getNamespace(), 'journal_issuegd');
+		$journalIssueNodegd = $doc->createElementNS($deployment->getNamespace(), 'journal_issue');
 		if ($issue->getDatePublished()) {
 			$journalIssueNodegd->appendChild($this->createPublicationDateNode($doc, $issue->getDatePublished()));
 		}
 		if ($issue->getVolume() && $issue->getShowVolume()){
-			$journalVolumeNode = $doc->createElementNS($deployment->getNamespace(), 'journal_volumegd');
-			$journalVolumeNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'volumegd', htmlspecialchars($issue->getVolume(), ENT_COMPAT, 'UTF-8')));
+			$journalVolumeNode = $doc->createElementNS($deployment->getNamespace(), 'journal_volume');
+			$journalVolumeNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'volume', htmlspecialchars($issue->getVolume(), ENT_COMPAT, 'UTF-8')));
 			$journalIssueNodegd->appendChild($journalVolumeNode);
 		}
 		if ($issue->getNumber() && $issue->getShowNumber()) {
-			$journalIssueNodegd->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'issuegd', htmlspecialchars($issue->getNumber(), ENT_COMPAT, 'UTF-8')));
+			$journalIssueNodegd->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'issue', htmlspecialchars($issue->getNumber(), ENT_COMPAT, 'UTF-8')));
 		}
 		if ($issue->getDatePublished() && $issue->getStoredPubId('doi')) {
 			$request = Application::get()->getRequest();
-			$journalIssueNodegd->appendChild($this->createDOIDataNode($doc, $issue->getStoredPubId('doi'), $request->url($context->getPath(), 'issuegd', 'viewgd', $issue->getBestIssueId($context), null, null, true)));
+			$journalIssueNodegd->appendChild($this->createDOIDataNode($doc, $issue->getStoredPubId('doi'), $request->url($context->getPath(), 'issue', 'view', $issue->getBestIssueId($context), null, null, true)));
 		}
 		return $journalIssueNodegd;
 	}
