@@ -35,6 +35,27 @@ define('galley_DEPOSIT_STATUS', 'depositStatus');
 
 class galleyExportPlugin extends DOIPubIdExportPlugin {
 
+   public function register($category, $path, $mainContextId = NULL) {
+        $success = parent::register($category, $path);
+            if ($success && $this->getEnabled()) {
+              
+                       HookRegistry::register('TemplateResource::getFilename', array($this, '_overrideGridTemplate'));
+
+
+            }
+        return $success;
+    }
+
+
+public function _overrideGridTemplate($hookName, $args) {
+    $templatePath = $args[0];
+    if ($templatePath === 'lib/pkp/templates/controllers/grid/gridRowSelectInput.tpl') {
+        $args[0] = 'plugins/importexport/galley/templates/controllers/grid/gridRowSelectInput.tpl';
+    }
+    return false;
+}
+
+
 	/**
 	 * @copydoc Plugin::getName()
 	 */

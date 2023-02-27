@@ -443,7 +443,7 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 		}
 
 		// DOI data
-		$doiDataNode = $this->createDOIDataNode($doc, $publication->getStoredPubId('doi'), $request->url($context->getPath(), 'article', 'viewlllll', $submission->getBestId(), null, null, true));
+		$doiDataNode = $this->createDOIDataNode($doc, $publication->getStoredPubId('doi'), $request->url($context->getPath(), 'article', 'view', $submission->getBestId(), null, null, true));
 		// append galleys files and collection nodes to the DOI data node
 		$galleys = $publication->getData('galleys');
 		// All full-texts, PDF full-texts and remote galleys for text-mining and as-crawled URL
@@ -529,7 +529,7 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 			$doiDataNode->appendChild($crawlerBasedCollectionNode);
 		}
 		foreach ($galleys as $galley) {
-			$resourceURL = $request->url($context->getPath(), 'article', 'download02', array($submission->getBestId(), $galley->getBestGalleyId()), null, null, true);
+			$resourceURL = $request->url($context->getPath(), 'article', 'downloaditemzeroum', array($submission->getBestId(), $galley->getBestGalleyId()), null, null, true);
 			
 			
 			
@@ -538,7 +538,9 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 			// iParadigms crawler based collection element
 			$crawlerBasedCollectionNode = $doc->createElementNS($deployment->getNamespace(), 'collection');
 			$crawlerBasedCollectionNode->setAttribute('property', 'crawler-based');
-			$iParadigmsItemNode = $doc->createElementNS($deployment->getNamespace(), 'item');
+			
+//AQUI SE FORMA O LINK PRIMARIO DE DOWNLOAD			
+			$iParadigmsItemNode = $doc->createElementNS($deployment->getNamespace(), 'itemzeroum');
 			$iParadigmsItemNode->setAttribute('crawler', 'iParadigms');
 			$iParadigmsItemNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'resource', $resourceURL));
 			$crawlerBasedCollectionNode->appendChild($iParadigmsItemNode);
@@ -604,18 +606,23 @@ class ArticlegalleyXmlFilter extends IssuegalleyXmlFilter {
 		$textMiningCollectionNode = $doc->createElementNS($deployment->getNamespace(), 'collection');
 		$textMiningCollectionNode->setAttribute('property', 'text-mining');
 		foreach ($galleys as $galley) {
-			$resourceURL = $request->url($context->getPath(), 'article', 'download', array($submission->getBestId(), $galley->getBestGalleyId()), null, null, true);
+			$resourceURL = $request->url($context->getPath(), 'article', 'downloaditemzerodois', array($submission->getBestId(), $galley->getBestGalleyId()), null, null, true);
 			
-
+//AQUI SE FORMA O SEGUNDO LINK PROPRIO DE DOWNLOAD
 			// text-mining collection item
-			$textMiningItemNode = $doc->createElementNS($deployment->getNamespace(), 'item');
+			$textMiningItemNode = $doc->createElementNS($deployment->getNamespace(), 'itemzerodois');
 			
 			$resourceNode = $doc->createElementNS($deployment->getNamespace(), 'resource', $resourceURL);
+			
+						$resourceURLxx = "xablau/" . $galley->getBestGalleyId();
+
+			$resourceNodedoi = $doc->createElementNS($deployment->getNamespace(), 'resourcexyz', $resourceURLxx);
 			
 			
 			
 			if (!$galley->getRemoteURL()) $resourceNode->setAttribute('mime_type', $galley->getFileType());
 			$textMiningItemNode->appendChild($resourceNode);
+			$textMiningItemNode->appendChild($resourceNodedoi);
 			$textMiningCollectionNode->appendChild($textMiningItemNode);
 		}
 		$doiDataNode->appendChild($textMiningCollectionNode);

@@ -338,6 +338,7 @@ class IssuegalleyXmlFilter extends NativeExportFilter {
 	function createDOIDataNode($doc, $doi, $url) {
 		$deployment = $this->getDeployment();
 		$doiDataNode = $doc->createElementNS($deployment->getNamespace(), 'doi_data');
+	
 		$doiDataNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'doi', htmlspecialchars($doi, ENT_COMPAT, 'UTF-8')));
 		$doiDataNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'resource', $url));
 		return $doiDataNode;
