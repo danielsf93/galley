@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doi_batch xmlns="http://www.crossref.org/schema/4.3.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" version="4.3.6" xsi:schemaLocation="http://www.crossref.org/schema/4.3.6 https://www.crossref.org/schemas/crossref4.3.6.xsd">
+  <head>
+    <doi_batch_id>_1678453732</doi_batch_id>
+    <timestamp>20230310050852000</timestamp>
+    <depositor>
+      <depositor_name>usuario</depositor_name>
+      <email_address>usuario@gh.com</email_address>
+    </depositor>
+    <registrant>PKP Publishing Services</registrant>
+  </head>
+  <body>
+    <journal>
+      <journal_metadata>
+        <full_title>OJS3 Testdrive Journal</full_title>
+        <abbrev_title>test</abbrev_title>
+        <issn media_type="electronic">2049-3630</issn>
+      </journal_metadata>
+      <journal_issue>
+        <publication_date media_type="online">
+          <month>03</month>
+          <day>15</day>
+          <year>2021</year>
+        </publication_date>
+        <journal_volume>
+          <volume>1</volume>
+        </journal_volume>
+        <issue>3</issue>
+      </journal_issue>
+      <journal_article xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" publication_type="full_text" metadata_distribution_opts="any">
+        <titles>
+          <title>A non-commercial, cooperative and sustainable Open Access approach in Latin America</title>
+        </titles>
+        <contributors>
+          <person_name contributor_role="author" sequence="first" language="en">
+            <given_name>Arianna</given_name>
+            <surname>Becerril</surname>
+          </person_name>
+        </contributors>
+        <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+          <jats:p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis ipsum aliquet, interdum lorem nec, blandit massa. Aliquam fringilla elementum erat vel convallis. Donec sed erat sagittis, accumsan ligula vel, eleifend tellus. Nulla ultrices lacinia lectus vel vestibulum. Duis aliquam sed elit ac pharetra. Donec lobortis id quam id tristique. Donec neque mauris, viverra vel blandit quis, consequat eu lacus. Nulla facilisi. Sed quis molestie arcu, et bibendum erat. Donec massa lectus, vehicula a mi id, eleifend vestibulum neque. Donec ut risus non lacus vehicula mattis at vel purus. Etiam auctor suscipit semper. Suspendisse urna turpis, condimentum in lobortis in.</jats:p>
+        </jats:abstract>
+        <publication_date media_type="online">
+          <month>03</month>
+          <day>15</day>
+          <year>2021</year>
+        </publication_date>
+        <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+          <ai:license_ref>http://creativecommons.org/licenses/by-nc-nd/4.0</ai:license_ref>
+        </ai:program>
+        <doi_data>
+          <doi>10.1234/td.v1i3.723</doi>
+          <resource>https://demo.publicknowledgeproject.org/ojs3/testdrive/index.php/testdrive-journal/article/view/723</resource>
+          <collection property="crawler-based">
+            <item crawler="iParadigms">
+              <resource>https://demo.publicknowledgeproject.org/ojs3/testdrive/index.php/testdrive-journal/article/download/723/183</resource>
+            </item>
+          </collection>
+          <collection property="text-mining">
+            <item>
+              <resource mime_type="application/pdf">https://demo.publicknowledgeproject.org/ojs3/testdrive/index.php/testdrive-journal/article/download/723/183</resource>
+            </item>
+            <item>
+              <resource>https://demo.publicknowledgeproject.org/ojs3/testdrive/index.php/testdrive-journal/article/download/723/186</resource>
+            </item>
+          </collection>
+        </doi_data>
+        <component_list>
+          <component parent_relation="isPartOf">
+            <titles>
+              <title>icefrin, dataset.csv</title>
+            </titles>
+            <doi_data>
+              <doi>10.1234/td.v1i3.723.g185</doi>
+              <resource>https://demo.publicknowledgeproject.org/ojs3/testdrive/index.php/testdrive-journal/article/download/723/185</resource>
+            </doi_data>
+          </component>
+        </component_list>
+      </journal_article>
+    </journal>
+  </body>
+</doi_batch>
